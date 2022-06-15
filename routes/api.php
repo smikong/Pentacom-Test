@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\TodoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('todos')->group(function () {
+    Route::get('', [TodoController::class, 'index'])->name('api.todos.list');
+    Route::post('create', [TodoController::class, 'store'])->name('api.todos.store'); // Csak a teszt kedvéért
 });
